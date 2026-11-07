@@ -221,7 +221,7 @@
 
   section,footer{scroll-margin-top:64px}
 
-  /* Nova: 3D hologram guide */
+  /* Lumi: 3D hologram guide */
   .guide{position:fixed;right:20px;bottom:16px;z-index:60;display:flex;align-items:flex-end;gap:10px;pointer-events:none;opacity:0;transform:translateY(40px) scale(.85);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1.2)}
   .guide.on{opacity:1;transform:none}
   .guide>*{pointer-events:auto}
@@ -446,11 +446,11 @@
 
 <div class="guide" id="guide">
   <div class="bubble hide" id="gBubble" role="dialog" aria-label="Site guide" aria-live="polite">
-    <div class="gname"><span>NOVA · SITE GUIDE</span><span class="gr"><span id="gStep"></span><button id="gMute" class="gmute" type="button" aria-label="Mute Nova's voice">🔊</button></span></div>
+    <div class="gname"><span>LUMI · SITE GUIDE</span><span class="gr"><span id="gStep"></span><button id="gMute" class="gmute" type="button" aria-label="Mute Lumi's voice">🔊</button></span></div>
     <p id="gText"></p>
     <div class="gbtns" id="gBtns"></div>
   </div>
-  <button class="bot" id="bot" type="button" aria-label="Nova, the site guide: open the menu">
+  <button class="bot" id="bot" type="button" aria-label="Lumi, the site guide: open the menu">
     <span class="rig"><span class="tilt" id="tilt"><span class="sway">
       <span class="halo"></span>
       <span class="ring"></span><span class="ring b"></span>
@@ -608,7 +608,7 @@
   document.getElementById("skip").addEventListener("click",finishBoot);
   document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ if(!booted) finishBoot(); else hideBubble(); } });
 
-  /* ---------- Nova: the 3D hologram guide ---------- */
+  /* ---------- Lumi: the 3D hologram guide ---------- */
   var guide=document.getElementById("guide"), bot=document.getElementById("bot"), bubble=document.getElementById("gBubble"),
       gText=document.getElementById("gText"), gBtns=document.getElementById("gBtns"), gStep=document.getElementById("gStep"),
       tilt=document.getElementById("tilt"), typeT=0, hideT=0, mode="";
@@ -622,18 +622,18 @@
   ];
   var jumps=[["approach","Approach"],["systems","Systems"],["work","Tools"],["kit","Toolkit"],["creator","Creator"],["contact","Say hi"]];
 
-  /* ---------- Nova's voice (browser text-to-speech, female, most natural available) ---------- */
-  var synth=window.speechSynthesis||null, novaVoice=null, speaking=false, activated=false,
+  /* ---------- Lumi's voice (browser text-to-speech, female, most natural available) ---------- */
+  var synth=window.speechSynthesis||null, lumiVoice=null, speaking=false, activated=false,
       voiceOn=true, muteBtn=document.getElementById("gMute");
-  try{ voiceOn=localStorage.getItem("novaVoice")!=="off"; }catch(e){}
+  try{ voiceOn=localStorage.getItem("lumiVoice")!=="off"; }catch(e){}
   // most human-like female voices first: Edge neural voices, then Google, Apple, Windows
-  var voicePrefs=[/Aria.*Natural/i,/Jenny.*Natural/i,/Neerja.*Natural/i,/Sonia.*Natural/i,/Ava.*Natural/i,/Emma.*Natural/i,/Libby.*Natural/i,/Natasha.*Natural/i,
+  var voicePrefs=[/Jenny.*Natural/i,/Emma.*Natural/i,/Ava.*Natural/i,/Michelle.*Natural/i,/Libby.*Natural/i,/Neerja.*Natural/i,/Natasha.*Natural/i,/Sonia.*Natural/i,/Aria.*Natural/i,
     /Google UK English Female/i,/Google US English/i,/Samantha/i,/Karen/i,/Moira/i,/Serena/i,/Tessa/i,/Veena/i,/Zira/i,/Hazel/i,/Heera/i,/Susan/i,/female/i];
   function pickVoice(){
     if(!synth) return;
     var vs=synth.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
-    for(var k=0;k<voicePrefs.length;k++){ for(var j=0;j<vs.length;j++){ if(voicePrefs[k].test(vs[j].name)){ novaVoice=vs[j]; return; } } }
-    novaVoice=vs[0]||null;
+    for(var k=0;k<voicePrefs.length;k++){ for(var j=0;j<vs.length;j++){ if(voicePrefs[k].test(vs[j].name)){ lumiVoice=vs[j]; return; } } }
+    lumiVoice=vs[0]||null;
   }
   if(synth){ pickVoice(); if(synth.addEventListener) synth.addEventListener("voiceschanged",pickVoice); else synth.onvoiceschanged=pickVoice; }
   ["pointerdown","keydown"].forEach(function(ev){ window.addEventListener(ev,function(){ activated=true; },{once:true,capture:true}); });
@@ -643,16 +643,16 @@
     stopVoice();
     if(!synth||!voiceOn||!activated) return;
     var u=new SpeechSynthesisUtterance(speechText(t));
-    if(novaVoice){ u.voice=novaVoice; u.lang=novaVoice.lang; } else u.lang="en-GB";
-    var natural=novaVoice&&/Natural|Google/i.test(novaVoice.name);
-    u.rate=natural?1:0.98; u.pitch=natural?1:1.08; u.volume=1;
+    if(lumiVoice){ u.voice=lumiVoice; u.lang=lumiVoice.lang; } else u.lang="en-GB";
+    var natural=lumiVoice&&/Natural|Google/i.test(lumiVoice.name);
+    u.rate=natural?0.96:0.95; u.pitch=natural?1.15:1.25; u.volume=0.9; // lighter, softer delivery
     u.onstart=function(){ speaking=true; bot.classList.add("talk"); };
     u.onend=u.onerror=function(){ speaking=false; if(gText.classList.contains("done")) bot.classList.remove("talk"); };
     synth.speak(u);
   }
   function setMute(on){
-    voiceOn=on; try{ localStorage.setItem("novaVoice",on?"on":"off"); }catch(e){}
-    muteBtn.textContent=on?"🔊":"🔇"; muteBtn.setAttribute("aria-label",on?"Mute Nova's voice":"Turn on Nova's voice");
+    voiceOn=on; try{ localStorage.setItem("lumiVoice",on?"on":"off"); }catch(e){}
+    muteBtn.textContent=on?"🔊":"🔇"; muteBtn.setAttribute("aria-label",on?"Mute Lumi's voice":"Turn on Lumi's voice");
     if(!on) stopVoice();
   }
   if(!synth) muteBtn.style.display="none"; else setMute(voiceOn);
@@ -686,7 +686,7 @@
     guide.classList.add("on");
     flag("wave",1900);
     mode="hello";
-    say("Hi! I'm Nova, Jithin's system guide. Want a quick tour of the site?",
+    say("Hi! I'm Lumi, Jithin's system guide. Want a quick tour of the site?",
       [["Take the tour","pri",function(){ tour(0); }],["I'll explore",null,function(){ idle(false); }]]);
   }
   function tour(i){
