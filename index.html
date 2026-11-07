@@ -59,6 +59,15 @@
   #blog{position:absolute;left:24px;bottom:22px;font-family:var(--mono);font-size:12px;line-height:1.75;color:var(--blue);white-space:pre}
   #blog div{opacity:0;animation:fadein .25s forwards}
   #blog div.ok{color:#7fd19b}
+  .bstart{position:absolute;inset:23%;border-radius:50%;border:1px solid rgba(127,182,196,.5);background:radial-gradient(circle,rgba(127,182,196,.16),rgba(10,12,15,.15) 70%);color:#f2efe8;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;animation:breathe 2.4s ease-in-out infinite;transition:transform .2s}
+  .bstart:hover{transform:scale(1.04)}
+  .bstart:focus-visible{outline:2px solid var(--sand);outline-offset:6px}
+  .bstart .pw{font-size:clamp(38px,8vmin,54px);line-height:1;color:#9fe3f2;text-shadow:0 0 20px rgba(127,182,196,.9)}
+  .bstart .bl{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue)}
+  @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(127,182,196,.35),0 0 20px rgba(127,182,196,.12)}50%{box-shadow:0 0 0 16px rgba(127,182,196,0),0 0 46px rgba(127,182,196,.3)}}
+  #boot.gate .bstart{display:flex}
+  #boot.gate .core,#boot.gate .prog{display:none}
+  #boot.gate #blog div{animation:pulse 1.6s infinite}
   #skip{position:absolute;right:24px;bottom:22px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);background:transparent;border:1px solid var(--line2);border-radius:7px;padding:7px 12px;cursor:pointer}
   #skip:hover{color:var(--ink);border-color:var(--blue)}
   @media(max-width:600px){#blog{font-size:10.5px;bottom:64px}.bc.tr{display:none}}
@@ -306,6 +315,7 @@
       <path class="cross" d="M-112 0h22M90 0h22M0 -112v22M0 90v22"/>
     </svg>
     <div class="core"><div class="mk">JJ</div><div class="pc" id="pc">000%</div><div class="st" id="st">SYSTEM BOOT</div></div>
+    <button id="bootStart" class="bstart" type="button" aria-label="Initialise the site"><span class="pw">⏻</span><span class="bl">Tap to initialise</span></button>
   </div>
   <div id="blog" aria-hidden="true"></div>
   <button id="skip" type="button">Skip intro ⏭</button>
@@ -583,18 +593,34 @@
   ];
   function later(fn,ms){ timers.push(setTimeout(fn,ms)); }
   function setPct(p){ pc.textContent=("00"+Math.round(p)).slice(-3)+"%"; prog.style.strokeDashoffset=String(439.8*(1-p/100)); }
-  function runBoot(){
+  // withGate: show the "Tap to initialise" power button first. Browsers only allow
+  // sound after a click, so this tap is what lets Lumi speak from the very start.
+  function runBoot(withGate){
     timers.forEach(clearTimeout); timers=[]; cancelAnimationFrame(rafB);
     booted=false; hideBubble();
     document.body.classList.add("booting");
-    boot.classList.remove("gone","flash"); hud.classList.remove("out");
+    boot.classList.remove("gone","flash","gate"); hud.classList.remove("out");
     blog.innerHTML=""; st.textContent="SYSTEM BOOT"; st.classList.remove("ok"); setPct(0);
+    var alreadyActive=navigator.userActivation&&navigator.userActivation.hasBeenActive;
+    if(withGate && !alreadyActive){
+      boot.classList.add("gate");
+      blog.innerHTML="<div>&gt; standing by · awaiting input</div>";
+      setTimeout(function(){ var b=document.getElementById("bootStart"); if(b) b.focus({preventScroll:true}); },50);
+      return;
+    }
+    startSequence();
+  }
+  function startSequence(){
+    if(booted) return;
+    boot.classList.remove("gate"); blog.innerHTML=""; setPct(0);
+    activated=true;
+    speak("Initialising systems.");
     var dur=reduce?300:2800, t0=performance.now();
     (function tick(now){ var p=Math.min(100,(now-t0)/dur*100); setPct(p); if(p<100) rafB=requestAnimationFrame(tick); })(t0);
     logLines.forEach(function(l,i){
       later(function(){ var d=document.createElement("div"); d.textContent=l; if(i===logLines.length-1) d.className="ok"; blog.appendChild(d); }, reduce?0:150+i*450);
     });
-    later(function(){ cancelAnimationFrame(rafB); setPct(100); st.textContent="ALL SYSTEMS ONLINE"; st.classList.add("ok"); boot.classList.add("flash"); }, reduce?300:3000);
+    later(function(){ cancelAnimationFrame(rafB); setPct(100); st.textContent="ALL SYSTEMS ONLINE"; st.classList.add("ok"); boot.classList.add("flash"); speak("All systems online."); }, reduce?300:3000);
     later(function(){ hud.classList.add("out"); }, reduce?500:3400);
     later(finishBoot, reduce?700:3900);
   }
@@ -605,8 +631,13 @@
     document.getElementById("hero").classList.add("in");
     setTimeout(showGuide, reduce?200:900);
   }
-  document.getElementById("skip").addEventListener("click",finishBoot);
-  document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ if(!booted) finishBoot(); else hideBubble(); } });
+  document.getElementById("skip").addEventListener("click",function(e){ e.stopPropagation(); activated=true; finishBoot(); });
+  document.getElementById("bootStart").addEventListener("click",function(e){ e.stopPropagation(); startSequence(); });
+  // tapping anywhere on the standby screen also starts it
+  boot.addEventListener("click",function(){ if(boot.classList.contains("gate")) startSequence(); });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){ activated=true; if(!booted) finishBoot(); else hideBubble(); }
+  });
 
   /* ---------- Lumi: the 3D hologram guide ---------- */
   var guide=document.getElementById("guide"), bot=document.getElementById("bot"), bubble=document.getElementById("gBubble"),
@@ -642,6 +673,7 @@
   function speak(t){
     stopVoice();
     if(!synth||!voiceOn||!activated) return;
+    if(!lumiVoice) pickVoice(); // voices can load late on first visit
     var u=new SpeechSynthesisUtterance(speechText(t));
     if(lumiVoice){ u.voice=lumiVoice; u.lang=lumiVoice.lang; } else u.lang="en-GB";
     var natural=lumiVoice&&/Natural|Google/i.test(lumiVoice.name);
@@ -708,7 +740,7 @@
     mode="menu"; flag("hop",600);
     var btns=jumps.map(function(j,k){ return ["<b>0"+(k+1)+"</b>"+j[1],null,function(){ go(j[0]); hideBubble(); }]; });
     btns.push(["↻ Restart the tour",null,function(){ tour(0); }]);
-    btns.push(["⏻ Replay the intro",null,function(){ go("hero"); runBoot(); }]);
+    btns.push(["⏻ Replay the intro",null,function(){ go("hero"); runBoot(false); }]);
     say("Where to?",btns,"",true);
   }
   bot.addEventListener("click",function(){
@@ -731,7 +763,7 @@
     },{passive:true});
   }
 
-  runBoot();
+  runBoot(true);
 })();
 </script>
 </body>
