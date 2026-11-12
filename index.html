@@ -226,6 +226,13 @@
   #hero .greet{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.8vw,21px);color:#e4c88f;opacity:0;transition:1.2s .9s}
   #hero.in .greet{opacity:1}
 
+  /* case-study visibility */
+  #hero .hcta{margin-top:28px;opacity:0;transition:opacity 1.2s 1.1s}
+  #hero.in .hcta{opacity:1}
+  .hbtn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;background:var(--gold);background-size:200% 100%;color:#1a1206;font-weight:500;font-size:14.5px;text-decoration:none;transition:background-position .6s var(--ease),transform .3s var(--ease)}
+  .hbtn:hover{background-position:100% 0;transform:translateY(-2px)}
+  .frame .badge{position:absolute;right:24px;bottom:24px;z-index:3;padding:5px 12px;border-radius:999px;background:rgba(11,12,14,.86);border:1px solid rgba(201,166,107,.6);color:#e4c88f;font-size:12px;letter-spacing:.03em;pointer-events:none}
+
   /* numbers room */
   #numbers{background:radial-gradient(ellipse 70% 50% at 20% 30%,rgba(201,166,107,.06),transparent 70%),var(--bg)}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:46px;border-top:1px solid var(--line)}
@@ -333,6 +340,7 @@
       <h1><span>Welcome to</span><span class="gold">the world of awesome.</span></h1>
       <p class="sub">I find where processes break, and build what fixes them. This is a small gallery of those tools: real, working and free to use.</p>
       <p class="greet" id="greet"></p>
+      <div class="hcta"><a class="hbtn" href="case/appeals-risk-model.html">Read my case studies</a></div>
     </div>
     <div class="cue">scroll</div>
   </section>
@@ -452,7 +460,7 @@
 </main>
 
 <div id="dock" role="navigation" aria-label="Quick navigation">
-  <a href="#gallery">Gallery</a><a href="#archive">Archive</a><a href="#portrait">About</a><a href="#guestbook">Contact</a><button class="kk" type="button" id="kdock">⌘K</button>
+  <a href="#gallery">Gallery</a><a href="case/appeals-risk-model.html">Case studies</a><a href="#archive">Archive</a><a href="#portrait">About</a><a href="#guestbook">Contact</a><button class="kk" type="button" id="kdock">⌘K</button>
 </div>
 
 <div class="scrim" id="scrim"></div>
@@ -504,7 +512,7 @@
   /* ---------- gallery frames ---------- */
   $("gtrack").innerHTML=featured.map(function(x,i){
     var cs=cases[x.s];
-    return '<div class="fw"><button class="frame" type="button" data-s="'+x.s+'" data-n="'+x.n+'" data-k="'+x.k+'"><div class="spot"></div><div class="mat"><div class="quip">'+quips[i]+'</div><img src="work/'+x.s+'.jpg" alt="'+x.n+' — screenshot" width="960" height="600" loading="lazy"></div>'+
+    return '<div class="fw"><button class="frame" type="button" data-s="'+x.s+'" data-n="'+x.n+'" data-k="'+x.k+'"><div class="spot"></div><div class="mat"><div class="quip">'+quips[i]+'</div>'+(cs?'<span class="badge">Case study</span>':'')+'<img src="work/'+x.s+'.jpg" alt="'+x.n+' — screenshot" width="960" height="600" loading="lazy"></div>'+
       '<div class="placard"><div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="tech">'+built[i]+'</div><div class="cat">'+x.k+' · 2026 · synthetic data</div></div><div class="no">No. '+pad(i+1)+'</div></div></button>'+(cs?'<a class="case" href="case/'+cs+'.html">Read the case study</a>':'')+'</div>';
   }).join("");
   $("gtot").textContent=pad(featured.length);
