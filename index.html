@@ -312,6 +312,52 @@
   body.light .cell{background:rgba(30,27,23,.03)}
   body.light #ring{border-color:rgba(122,87,38,.5)}
 
+  /* Cleo, the puppy guide */
+  #cleoBtn{position:fixed;right:22px;bottom:20px;z-index:72;width:66px;height:66px;border-radius:50%;background:rgba(20,21,24,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(201,166,107,.35);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s var(--ease),border-color .3s}
+  #cleoBtn.on{opacity:1;transform:none}
+  #cleoBtn:hover{border-color:var(--sand2)}
+  #cleoBtn svg{width:50px;height:50px;overflow:visible}
+  #cleoBtn .tail{transform-origin:46px 44px;animation:wag 2.4s ease-in-out infinite}
+  @keyframes wag{0%,60%,100%{transform:rotate(0)}66%{transform:rotate(-22deg)}72%{transform:rotate(12deg)}78%{transform:rotate(-18deg)}84%{transform:rotate(6deg)}}
+  #cleoBtn .eye{transform-box:fill-box;transform-origin:center;animation:cblink 5s infinite}
+  @keyframes cblink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.15)}}
+  #cleoBtn .head{transform-origin:28px 40px;transition:transform .35s var(--ease)}
+  #cleoBtn:hover .head,#cleoBtn.think .head{transform:rotate(-10deg)}
+  #cleoBtn .hi{position:absolute;right:76px;bottom:20px;white-space:nowrap;font-size:13px;color:var(--ink);background:rgba(20,21,24,.88);border:1px solid rgba(201,166,107,.35);padding:6px 11px;border-radius:999px;opacity:0;transform:translateX(6px);transition:.35s var(--ease);pointer-events:none}
+  #cleoBtn:hover .hi{opacity:1;transform:none}
+  #cleo{position:fixed;right:22px;bottom:98px;z-index:73;width:min(360px,calc(100vw - 28px));height:min(520px,calc(100vh - 140px));display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:rgba(18,19,22,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(201,166,107,.3);box-shadow:0 40px 90px -30px rgba(0,0,0,.9);opacity:0;visibility:hidden;transform:translateY(14px) scale(.98);transform-origin:bottom right;transition:.35s var(--ease)}
+  #cleo.on{opacity:1;visibility:visible;transform:none}
+  #cleo .cleohd{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  #cleo .cleohd svg{width:34px;height:34px;flex:none}
+  #cleo .cleohd b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.1}
+  #cleo .cleohd small{display:block;font-size:12px;color:var(--dim)}
+  #cleo .cleohd button{margin-left:auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);color:var(--muted)}
+  #cleo .cleohd button:hover{color:var(--ink);border-color:rgba(201,166,107,.5)}
+  #cleo .msgs{flex:1;overflow:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px}
+  #cleo .m{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5}
+  #cleo .m.c{align-self:flex-start;background:rgba(244,241,234,.06);border:1px solid var(--line);border-bottom-left-radius:4px}
+  #cleo .m.u{align-self:flex-end;background:rgba(201,166,107,.18);border:1px solid rgba(201,166,107,.3);border-bottom-right-radius:4px}
+  #cleo .m a{color:var(--sand2)}
+  #cleo .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  #cleo .acts a,#cleo .acts button{font-size:12.5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(201,166,107,.45);color:var(--sand2);text-decoration:none;background:none}
+  #cleo .acts a:hover,#cleo .acts button:hover{background:rgba(201,166,107,.15)}
+  #cleo .typing{display:flex;gap:5px;padding:12px 14px}
+  #cleo .typing i{width:9px;height:8px;border-radius:50% 50% 45% 45%;background:var(--sand);opacity:.3;animation:paw 1s infinite}
+  #cleo .typing i:nth-child(2){animation-delay:.15s}#cleo .typing i:nth-child(3){animation-delay:.3s}
+  @keyframes paw{50%{opacity:1;transform:translateY(-3px)}}
+  #cleo .chips{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding:8px 14px;scrollbar-width:none}
+  #cleo .chips::-webkit-scrollbar{display:none}
+  #cleo .chips button{flex:none;font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  #cleo .chips button:hover{color:var(--ink);border-color:rgba(201,166,107,.5)}
+  #cleo form{display:flex;gap:8px;padding:10px 12px 12px;border-top:1px solid var(--line)}
+  #cleo input{flex:1;min-width:0;background:rgba(244,241,234,.05);border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:var(--ink);font:inherit;font-size:14px;outline:none}
+  #cleo input:focus{border-color:rgba(201,166,107,.5)}
+  #cleo form button{padding:0 16px;border-radius:999px;background:var(--gold);color:#1a1206;font-weight:500;font-size:13.5px}
+  body.light #cleoBtn,body.light #cleo{background:rgba(250,247,241,.92);border-color:rgba(149,110,53,.3)}
+  body.light #cleoBtn .hi{background:rgba(250,247,241,.95)}
+  @media(max-width:640px){#cleoBtn{right:14px;bottom:76px;width:58px;height:58px}#cleo{right:14px;bottom:144px;height:min(480px,calc(100vh - 170px))}}
+  @media(prefers-reduced-motion:reduce){#cleoBtn .tail,#cleoBtn .eye,#cleo .typing i{animation:none!important}}
+
   /* cursor ring (desktop only) */
   #ring{position:fixed;left:0;top:0;z-index:95;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid rgba(228,200,143,.55);border-radius:50%;pointer-events:none;opacity:0;transition:width .3s,height .3s,margin .3s,opacity .3s,border-color .3s}
   #ring.hov{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--sand2)}
@@ -487,6 +533,14 @@
 </div>
 
 <div id="ring" aria-hidden="true"></div>
+
+<button id="cleoBtn" type="button" aria-label="Ask Cleo, the puppy guide" aria-expanded="false" aria-controls="cleo"><svg viewBox="0 0 56 56" aria-hidden="true"><g class="tail"><path d="M44 44c6-1 9-6 8-11" fill="none" stroke="#f3eee6" stroke-width="4" stroke-linecap="round"/></g><ellipse cx="28" cy="47" rx="15" ry="7" fill="#f3eee6"/><g class="head"><path d="M12 22c-5 2-6 12-2 17 2 2 5 1 6-1l2-10z" fill="#e2c38f"/><path d="M44 22c5 2 6 12 2 17-2 2-5 1-6-1l-2-10z" fill="#e2c38f"/><circle cx="28" cy="28" r="15" fill="#fbf8f2"/><ellipse cx="28" cy="34" rx="8" ry="6" fill="#f1e7d6"/><ellipse class="eye" cx="22" cy="26" rx="2.2" ry="2.6" fill="#1b1a19"/><ellipse class="eye" cx="34" cy="26" rx="2.2" ry="2.6" fill="#1b1a19"/><circle cx="22.8" cy="25" r=".7" fill="#fff"/><circle cx="34.8" cy="25" r=".7" fill="#fff"/><ellipse cx="28" cy="31.5" rx="2.6" ry="1.9" fill="#2a2522"/><path d="M28 33.4v1.6M25.5 35.4c1.2 1.2 3.8 1.2 5 0" fill="none" stroke="#2a2522" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="18" cy="31" rx="2.4" ry="1.4" fill="#f2c9c0" opacity=".6"/><ellipse cx="38" cy="31" rx="2.4" ry="1.4" fill="#f2c9c0" opacity=".6"/></g></svg><span class="hi">Ask Cleo</span></button>
+<div id="cleo" role="dialog" aria-label="Cleo, a quick guide to Jithin's work">
+  <div class="cleohd"><svg viewBox="0 0 56 56" aria-hidden="true"><g class="tail"><path d="M44 44c6-1 9-6 8-11" fill="none" stroke="#f3eee6" stroke-width="4" stroke-linecap="round"/></g><ellipse cx="28" cy="47" rx="15" ry="7" fill="#f3eee6"/><g class="head"><path d="M12 22c-5 2-6 12-2 17 2 2 5 1 6-1l2-10z" fill="#e2c38f"/><path d="M44 22c5 2 6 12 2 17-2 2-5 1-6-1l-2-10z" fill="#e2c38f"/><circle cx="28" cy="28" r="15" fill="#fbf8f2"/><ellipse cx="28" cy="34" rx="8" ry="6" fill="#f1e7d6"/><ellipse class="eye" cx="22" cy="26" rx="2.2" ry="2.6" fill="#1b1a19"/><ellipse class="eye" cx="34" cy="26" rx="2.2" ry="2.6" fill="#1b1a19"/><circle cx="22.8" cy="25" r=".7" fill="#fff"/><circle cx="34.8" cy="25" r=".7" fill="#fff"/><ellipse cx="28" cy="31.5" rx="2.6" ry="1.9" fill="#2a2522"/><path d="M28 33.4v1.6M25.5 35.4c1.2 1.2 3.8 1.2 5 0" fill="none" stroke="#2a2522" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="18" cy="31" rx="2.4" ry="1.4" fill="#f2c9c0" opacity=".6"/><ellipse cx="38" cy="31" rx="2.4" ry="1.4" fill="#f2c9c0" opacity=".6"/></g></svg><div><b>Cleo</b><small>Chief Morale Officer · quick guide with pre-written answers</small></div><button type="button" id="cleoX" aria-label="Close">✕</button></div>
+  <div class="msgs" id="cleoMsgs" aria-live="polite"></div>
+  <div class="chips" id="cleoChips"></div>
+  <form id="cleoF" autocomplete="off"><input id="cleoQ" type="text" placeholder="Ask about Jithin's work…" aria-label="Ask Cleo a question" maxlength="200"><button type="submit">Ask</button></form>
+</div>
 
 <script>
 (function(){
@@ -764,6 +818,63 @@
     function set(light){ document.body.classList.toggle("light",light); b.innerHTML=light?sun:moon; b.setAttribute("aria-label",light?"Switch to the dark theme":"Switch to the light theme"); try{localStorage.setItem("theme",light?"light":"dark");}catch(e){} }
     var saved=null; try{saved=localStorage.getItem("theme");}catch(e){} set(saved==="light");
     b.addEventListener("click",function(){ set(!document.body.classList.contains("light")); }); })();
+
+  /* ---------- Cleo, the puppy guide (answers are pre-written; nothing is sent anywhere) ---------- */
+  (function(){
+    var btn=$("cleoBtn"), box=$("cleo"), msgs=$("cleoMsgs"), q=$("cleoQ"), chips=$("cleoChips"), started=false;
+    var CS=function(n,t){return {label:t||"Read the case study",href:"case/"+n+".html"};};
+    var RES={label:"Download résumé",href:"resume/Jithin_J_Resume.pdf",download:true}, MAIL={label:"Email Jithin",href:"mailto:jithinjolly2000@gmail.com"}, LI={label:"LinkedIn",href:"https://www.linkedin.com/in/jithin2k",ext:true};
+    var KB=[
+      {k:["hi","hello","hey","hiya","namaste","yo"],a:"Woof! I'm Cleo, Jithin's Chief Morale Officer. Ask me about his work, what he builds, or how to reach him."},
+      {k:["who","what","do","does","about","jithin","job","role","work","background","himself"],a:"Jithin is a data and risk analyst in Amazon's EU Compliance Operations, in Bangalore. He finds where processes break and builds what fixes them: validation and automation tools, risk models and control dashboards, built with AI.",x:[RES,CS("appeals-risk-model","See a case study")]},
+      {k:["skill","skills","tool","tools","stack","sql","python","sas","excel","vba","tableau","power","bi","quicksight","tech","language"],a:"SQL, PostgreSQL, SAS, Python (AI-assisted), Advanced Excel and VBA, Tableau, Power BI and QuickSight, plus LLM and agentic AI tools for building."},
+      {k:["ai","agent","agents","agentic","llm","gpt","claude","automation","automate"],a:"He builds with AI every day: 19 tools and builds in about a year, most of them his own idea. He led a 2-member team in an Agentic AI cohort and finished the project first."},
+      {k:["case","study","studies","project","projects","portfolio","demo","demos","built","build"],a:"Three good places to start. Each case study explains the problem, the thinking and the result.",x:[CS("appeals-risk-model","Appeals Risk Model"),CS("ops-control-center","Ops Control Center"),CS("reconcile","Reconcile")]},
+      {k:["resume","résumé","cv","download","pdf"],a:"Here's his public résumé. For a detailed version, just email him.",x:[RES,MAIL]},
+      {k:["contact","email","mail","reach","hire","talk","connect","linkedin","message","call"],a:"The quickest way is email: <a href='mailto:jithinjolly2000@gmail.com'>jithinjolly2000@gmail.com</a>. He's also on LinkedIn.",x:[MAIL,LI]},
+      {k:["award","awards","recognition","recognised","recognized","achievement","achievements","invent","simplify","best"],a:"Invent &amp; Simplify Award — Amazon (Director/L8), 2026, and Best Performer of the Month (May 2026). He also won a fully funded Erasmus+ scholarship."},
+      {k:["education","study","studied","college","university","degree","mba","pgdm","erasmus","padova","italy","bcom","b.com","rajagiri"],a:"A PGDM in Marketing &amp; Finance from Rajagiri Business School, a fully funded Erasmus+ KA107 semester at the University of Padova in Italy, and a B.Com from the University of Calicut."},
+      {k:["fraud","risk","compliance","kyb","kyc","audit","controls","seller","sellers","registry"],a:"He investigates seller accounts for fraud and compliance risk, built registry and KYB checks for six EU countries, and designed an operational risk model for a high-volume appeals process. The Appeals Risk Model case study shows the thinking.",x:[CS("appeals-risk-model")]},
+      {k:["privacy","private","upload","uploaded","data","safe","secure","synthetic"],a:"Every demo here runs in your browser on synthetic data. Nothing you load is uploaded, and this chat doesn't send your messages anywhere either."},
+      {k:["cleo","puppy","dog","pup","treat","treats","you","cute","good"],a:"That's me! Official title: Chief Morale Officer. I review every tool before it goes live. Payment is strictly in treats. 🐾"},
+      {k:["game","fun","play","secret","easter","egg","stones"],a:"Try the stone-balancing game in the Play room. And psst… type \"stones\" anywhere on the page."},
+      {k:["where","location","based","city","bangalore","bengaluru","india"],a:"Bangalore, India."},
+      {k:["available","open","looking","opportunity","opportunities","jobs","vacancy","freelance","salary"],a:"Best to ask Jithin directly. Email <a href='mailto:jithinjolly2000@gmail.com'>jithinjolly2000@gmail.com</a> and he'll get back to you.",x:[MAIL]},
+      {k:["thanks","thank","thx","bye","goodbye","cool","nice","great","awesome"],a:"Anytime! Woof. 🐾"}
+    ];
+    var CHIPS=["What does Jithin do?","Show me a case study","What has he built with AI?","Download résumé","How do I contact him?","Who are you, Cleo?"];
+    function words(t){ return (t.toLowerCase().match(/[a-zé.]+/g)||[]).map(function(w){return w.replace(/\.$/,"");}); }
+    function answer(t){
+      var w=words(t), best=null, bestS=0;
+      var GEN=["who","what","do","does","about","work","you","good","what's"];
+      KB.forEach(function(e,i){ var sc=0; e.k.forEach(function(k){ if(w.indexOf(k)>-1) sc+=GEN.indexOf(k)>-1?0.5:(k.length>3?3:2); }); if(i===0&&w.length>3) sc=0; if(sc>bestS){bestS=sc;best=e;} });
+      return best||{a:"I'm a small guide with pre-written answers, so I didn't catch that. Try one of the questions below, or email Jithin at <a href='mailto:jithinjolly2000@gmail.com'>jithinjolly2000@gmail.com</a>.",x:[MAIL]};
+    }
+    function add(text,who,acts){
+      var m=document.createElement("div"); m.className="m "+who;
+      if(who==="u") m.textContent=text; else m.innerHTML=text;
+      if(acts&&acts.length){ var a=document.createElement("div"); a.className="acts";
+        acts.forEach(function(x){ var l=document.createElement("a"); l.href=x.href; l.textContent=x.label; if(x.download) l.setAttribute("download",""); if(x.ext){l.target="_blank";l.rel="noopener";} a.appendChild(l); }); m.appendChild(a); }
+      msgs.appendChild(m); msgs.scrollTop=msgs.scrollHeight;
+    }
+    function reply(t){
+      add(t,"u"); var e=answer(t), ty=document.createElement("div"); ty.className="typing"; ty.innerHTML="<i></i><i></i><i></i>"; msgs.appendChild(ty); msgs.scrollTop=msgs.scrollHeight; btn.classList.add("think");
+      setTimeout(function(){ ty.remove(); btn.classList.remove("think"); add(e.a,"c",e.x); }, reduce?0:550+Math.random()*450);
+    }
+    chips.innerHTML=CHIPS.map(function(c){return "<button type='button'>"+c+"</button>";}).join("");
+    chips.addEventListener("click",function(e){ var b=e.target.closest("button"); if(b) reply(b.textContent); });
+    $("cleoF").addEventListener("submit",function(e){ e.preventDefault(); var t=q.value.trim(); if(!t) return; q.value=""; reply(t); });
+    function open(){ box.classList.add("on"); btn.setAttribute("aria-expanded","true");
+      if(!started){ started=true; add("Woof! I'm Cleo, Jithin's Chief Morale Officer. 🐾 I know my way around his work. What would you like to see?","c"); }
+      setTimeout(function(){ q.focus({preventScroll:true}); },60); }
+    function close(){ box.classList.remove("on"); btn.setAttribute("aria-expanded","false"); }
+    btn.addEventListener("click",function(){ box.classList.contains("on")?close():open(); });
+    $("cleoX").addEventListener("click",function(){ close(); btn.focus(); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&box.classList.contains("on")) close(); });
+    // appear quietly once the page has loaded
+    setTimeout(function(){ btn.classList.add("on"); }, reduce?0:2600);
+    entries.push({t:"Ask Cleo, the puppy guide",g:"Guide",go:open});
+  })();
 
   /* ---------- cursor ring ---------- */
   if(matchMedia("(pointer:fine)").matches&&!reduce){
