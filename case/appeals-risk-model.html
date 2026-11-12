@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study: Appeals Risk & Exposure Model — Jithin J</title>
+<meta name="description" content="How I designed an operational-risk model that shows where processing errors cost the most in a high-volume appeals queue.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<nav class="top"><div class="wrap"><a class="logo" href="../">JITHIN J</a><a href="../#gallery">All work</a></div></nav>
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Case study · Risk and analytics</p>
+    <h1>Appeals Risk &amp; Exposure Model</h1>
+    <p class="oneliner">A weekly error count tells you how often things go wrong. This shows where it costs the most, and what would fix it.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Designed and built it, with AI</dd></div>
+      <div><dt>Built with</dt><dd>Vanilla JavaScript, in-browser charts</dd></div>
+      <div><dt>Data</dt><dd>Synthetic, from a fixed seed</dd></div>
+      <div><dt>Status</dt><dd>Live demo</dd></div>
+    </dl>
+    <figure class="shot"><img src="../work/appeals-risk-exposure-model.jpg" alt="The Appeals Risk and Exposure Model dashboard" width="960" height="600"><figcaption>Headline metrics, daily and weekly appeal volume, and the root causes of processing errors.</figcaption></figure>
+  </header>
+
+  <section class="part"><h2>The problem</h2><div>
+    <p>A high-volume appeals queue makes processing errors every week. Some are cheap to fix and some are expensive, and the expensive ones cluster in places a single error rate hides.</p>
+    <p>The question an operations lead actually needs answered is: where is our exposure concentrated, and which fix would reduce it most?</p>
+  </div></section>
+
+  <section class="part"><h2>The approach</h2><div>
+    <p>I broke the queue into 30 drivers, each a pairing of a segment and an error type, and estimated the expected cost of errors for each one every week.</p>
+    <div class="formula">Expected exposure = volume × error probability × impact per error</div>
+    <div class="flow" aria-label="How the model works">
+      <div class="box"><b>Input</b><span>12 weeks of appeal volumes and errors, by segment and error type</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Logic</b><span>4-week run-rate, observed error probability, cost per error, ranked by share of exposure</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Output</b><span>Exposure heatmap, top 10 drivers, priorities and what-if scenarios</span></div>
+    </div>
+  </div></section>
+
+  <section class="part"><h2>Key decisions</h2><div>
+    <ul class="points">
+      <li><b>Call it what it is.</b> It's a planning estimate of operational expected loss, not a banking risk measure, and the methodology section says so plainly so nobody over-reads it.</li>
+      <li><b>Rank with a Pareto cut.</b> Drivers making up the first 50% of exposure are high priority and the next 30% medium, so attention goes where it moves the total most.</li>
+      <li><b>Let people test fixes.</b> Sliders for error rate, volume and automation coverage recompute every figure live, so a lead can see the effect of a change before making it.</li>
+      <li><b>Make it readable for everyone.</b> Every heatmap cell shows its value as text, not only as colour.</li>
+    </ul>
+  </div></section>
+
+  <section class="part"><h2>What it shows</h2><div>
+    <p>Where exposure concentrates by segment and error type, the ten drivers worth fixing first with a suggested mitigation for each, and how much exposure a change in automation coverage would remove.</p>
+  </div></section>
+
+  <section class="part"><h2>What I'd add next</h2><div>
+    <p>Ranges instead of single numbers, so uncertainty is visible, and an alert when a driver's exposure jumps week on week.</p>
+  </div></section>
+
+  <div class="try"><h2>Try it yourself</h2><p>It runs entirely in your browser.</p>
+    <div class="cta"><a class="btn primary" href="../appeals-risk-exposure-model/" target="_blank" rel="noopener">Open the live demo</a><a class="btn" href="https://github.com/jithinjolly2000-maker/appeals-risk-exposure-model" target="_blank" rel="noopener">View the source</a></div></div>
+
+  <div class="next"><a href="../#gallery"><small>Back to</small><b>All work</b></a><a href="ops-control-center.html" style="text-align:right"><small>Next case study</small><b>Ops Control Center</b></a></div>
+  <p class="note">A portfolio demonstration with synthetic data. Nothing here comes from any employer or real system.</p>
+</main>
+</body>
+</html>

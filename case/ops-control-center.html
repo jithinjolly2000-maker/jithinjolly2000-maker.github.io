@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study: Ops Control Center — Jithin J</title>
+<meta name="description" content="How I designed a single planning view that answers three questions for an operations lead: enough people, on plan, and what automation is delivering.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<nav class="top"><div class="wrap"><a class="logo" href="../">JITHIN J</a><a href="../#gallery">All work</a></div></nav>
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Case study · Planning and BI</p>
+    <h1>Ops Control Center</h1>
+    <p class="oneliner">Three questions an operations lead asks every Monday, answered on one screen.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Designed and built it, with AI</dd></div>
+      <div><dt>Built with</dt><dd>Vanilla JavaScript, in-browser charts</dd></div>
+      <div><dt>Data</dt><dd>Synthetic, from a fixed seed</dd></div>
+      <div><dt>Status</dt><dd>Live demo</dd></div>
+    </dl>
+    <figure class="shot"><img src="../work/ops-control-center.jpg" alt="The Ops Control Center dashboard" width="960" height="600"><figcaption>Filters, the summary for the current selection, and weekly capacity against workload.</figcaption></figure>
+  </header>
+
+  <section class="part"><h2>The problem</h2><div>
+    <p>Operations leads usually answer three questions from three different spreadsheets: do we have enough people, how are we doing against plan, and what is automation actually taking off the team? By the time the numbers are lined up, the week has started.</p>
+  </div></section>
+
+  <section class="part"><h2>The approach</h2><div>
+    <p>One view, three sections, each answering one question, all driven by the same filters for team, queue and weeks.</p>
+    <div class="formula">Capacity = (trained staff + 50% of ramping staff) × 32 productive hours</div>
+    <div class="formula">Workload = demand plan × handling time − hours saved by planned automation</div>
+    <div class="flow" aria-label="How the view works">
+      <div class="box"><b>Input</b><span>Weekly demand plan, handling times, headcount and the automation plan</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Logic</b><span>Capacity against workload, cumulative actuals against plan, hours saved by agent</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Output</b><span>Short and surplus weeks, variance to plan, and the impact of automation</span></div>
+    </div>
+  </div></section>
+
+  <section class="part"><h2>Key decisions</h2><div>
+    <ul class="points">
+      <li><b>Show the formulas on the page.</b> Leads trust numbers they can check, so every calculation is written next to the chart it drives.</li>
+      <li><b>Treat shortfalls and surpluses differently.</b> A week is short when capacity is more than 5% below workload, but only in surplus above 10%, because being understaffed hurts more than being slightly over.</li>
+      <li><b>Count new starters fairly.</b> Staff who are still ramping up count at half capacity, rather than as full people or as zero.</li>
+      <li><b>Pair every chart with a table.</b> The weekly figures can always be read as a table too, for anyone who prefers numbers or uses a screen reader.</li>
+    </ul>
+  </div></section>
+
+  <section class="part"><h2>What it shows</h2><div>
+    <p>Which weeks and queues are short of people, how tasks automated, hours saved and operating cost avoided are tracking against plan, and which agents' automation is delivering the most time back.</p>
+  </div></section>
+
+  <section class="part"><h2>What I'd add next</h2><div>
+    <p>A forecast for demand, so the capacity gap can be seen weeks ahead instead of only in the current plan.</p>
+  </div></section>
+
+  <div class="try"><h2>Try it yourself</h2><p>It runs entirely in your browser.</p>
+    <div class="cta"><a class="btn primary" href="../ops-control-center/" target="_blank" rel="noopener">Open the live demo</a><a class="btn" href="https://github.com/jithinjolly2000-maker/ops-control-center" target="_blank" rel="noopener">View the source</a></div></div>
+
+  <div class="next"><a href="appeals-risk-model.html"><small>Previous case study</small><b>Appeals Risk Model</b></a><a href="reconcile.html" style="text-align:right"><small>Next case study</small><b>Reconcile</b></a></div>
+  <p class="note">A portfolio demonstration with synthetic data. Nothing here comes from any employer or real system.</p>
+</main>
+</body>
+</html>

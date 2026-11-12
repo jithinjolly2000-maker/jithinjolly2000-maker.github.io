@@ -102,7 +102,7 @@
   /* gallery (horizontal room) */
   #gallery{display:block;padding:0;min-height:auto}
   .g-pin{position:relative;height:calc(var(--n,6) * 42vh + 100vh)}
-  .g-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:64px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,166,107,.07),transparent 60%),var(--bg2)}
+  .g-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:64px;padding-bottom:72px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,166,107,.07),transparent 60%),var(--bg2)}
   .g-head{padding:0 9vw 0 13vw;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
   .g-head h2.t{font-size:clamp(34px,4.6vw,58px)}
   .g-count{font-family:var(--serif);font-size:20px;color:var(--muted);white-space:nowrap}
@@ -115,7 +115,10 @@
   @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
   .g-count b{color:var(--ink);font-weight:500}
   .g-track{display:flex;gap:5vw;padding:4vh 9vw 0 13vw;will-change:transform}
-  .frame{flex:0 0 min(48vw,660px,calc((100vh - 360px) * 1.6));position:relative;cursor:pointer;text-align:left}
+  .fw{flex:0 0 min(48vw,660px,calc((100vh - 380px) * 1.6));display:flex;flex-direction:column}
+  .fw .case{align-self:flex-start;margin-top:12px;font-size:14px;color:var(--sand2);text-decoration:none;border-bottom:1px solid rgba(201,166,107,.4);padding-bottom:2px;transition:color .25s,border-color .25s}
+  .fw .case:hover{color:var(--ink);border-color:var(--ink)}
+  .frame{flex:none;width:100%;position:relative;cursor:pointer;text-align:left}
   .frame .spot{position:absolute;left:50%;top:-14vh;width:120%;height:60%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(255,236,200,.13),transparent 70%);pointer-events:none}
   .frame .mat{position:relative;padding:14px;background:linear-gradient(145deg,#1c1d20,#141518);border:1px solid rgba(201,166,107,.28);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),inset 0 0 0 1px rgba(244,241,234,.03);transition:transform .7s var(--ease),border-color .7s,box-shadow .7s}
   .frame:hover .mat,.frame:focus-visible .mat{transform:translateY(-8px);border-color:rgba(228,200,143,.7);box-shadow:0 60px 100px -30px rgba(0,0,0,.9),0 0 40px -10px rgba(201,166,107,.25)}
@@ -135,7 +138,7 @@
     .g-head,.g-hint{padding-left:24px;padding-right:24px}
     .g-track{overflow-x:auto;scroll-snap-type:x mandatory;padding:4vh 24px 10px;transform:none!important;scrollbar-width:none}
     .g-track::-webkit-scrollbar{display:none}
-    .frame{flex-basis:84vw;scroll-snap-align:center}.g-bar{display:none}
+    .fw{flex-basis:84vw;scroll-snap-align:center}.g-bar{display:none}
   }
 
   /* studio (how I work) */
@@ -328,7 +331,7 @@
     <div class="inner">
       <div class="eyebrow">Jithin J · data, risk &amp; automation</div>
       <h1><span>Welcome to</span><span class="gold">the world of awesome.</span></h1>
-      <p class="sub">A small gallery of the tools I build: real, working and free to use. Scroll slowly; each stone is a room.</p>
+      <p class="sub">I find where processes break, and build what fixes them. This is a small gallery of those tools: real, working and free to use.</p>
       <p class="greet" id="greet"></p>
     </div>
     <div class="cue">scroll</div>
@@ -497,10 +500,12 @@
 
   var quips=["Warning: may cause a sudden urge to find root causes.","Side effects include knowing exactly how many people you need.","Auditors hate this one simple dashboard.","Fifty rules walked into a bar. None of them overlapped.","Finds the one row that ruined your Friday.","SELECT * FROM fun WHERE boring = false;"];
   var built=["Built with vanilla JS · seeded synthetic data · in-browser charts","Built with vanilla JS · seeded synthetic data · filters and plans","Built with vanilla JS · synthetic exceptions · drill-down views","Built with vanilla JS · 50+ rule codes · live rule tester","Built with vanilla JS · runs locally · nothing is uploaded","Built with SQL.js (SQLite in WebAssembly) · vendored, offline-ready"];
+  var cases={"appeals-risk-exposure-model":"appeals-risk-model","ops-control-center":"ops-control-center","csv-reconciliation-tool":"reconcile"};
   /* ---------- gallery frames ---------- */
   $("gtrack").innerHTML=featured.map(function(x,i){
-    return '<button class="frame" type="button" data-s="'+x.s+'" data-n="'+x.n+'" data-k="'+x.k+'"><div class="spot"></div><div class="mat"><div class="quip">'+quips[i]+'</div><img src="work/'+x.s+'.jpg" alt="'+x.n+' — screenshot" width="960" height="600" loading="lazy"></div>'+
-      '<div class="placard"><div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="tech">'+built[i]+'</div><div class="cat">'+x.k+' · 2026 · synthetic data</div></div><div class="no">No. '+pad(i+1)+'</div></div></button>';
+    var cs=cases[x.s];
+    return '<div class="fw"><button class="frame" type="button" data-s="'+x.s+'" data-n="'+x.n+'" data-k="'+x.k+'"><div class="spot"></div><div class="mat"><div class="quip">'+quips[i]+'</div><img src="work/'+x.s+'.jpg" alt="'+x.n+' — screenshot" width="960" height="600" loading="lazy"></div>'+
+      '<div class="placard"><div><h3>'+x.n+'</h3><p>'+x.d+'</p><div class="tech">'+built[i]+'</div><div class="cat">'+x.k+' · 2026 · synthetic data</div></div><div class="no">No. '+pad(i+1)+'</div></div></button>'+(cs?'<a class="case" href="case/'+cs+'.html">Read the case study</a>':'')+'</div>';
   }).join("");
   $("gtot").textContent=pad(featured.length);
   $("gpin").style.setProperty("--n",featured.length);
@@ -615,6 +620,7 @@
   var entries=chapters.map(function(c){return {t:c.dataset.name,g:"Room",go:function(){c.scrollIntoView({behavior:reduce?"auto":"smooth"});}};});
   featured.forEach(function(x){entries.push({t:x.n,g:"Gallery",go:function(){openDemo(x.s,x.n,x.k);}});});
   colls.forEach(function(c){c.t.forEach(function(t){entries.push({t:t[0]+" — "+t[1],g:c.h,go:function(){openDemo(t[2],t[0],c.h,!!t[3]);}});});});
+  [["Appeals Risk & Exposure Model","appeals-risk-model"],["Ops Control Center","ops-control-center"],["Reconcile","reconcile"]].forEach(function(c){ entries.push({t:c[0]+" (case study)",g:"Case study",go:function(){location.href="case/"+c[1]+".html";}}); });
   entries.push({t:"Email Jithin",g:"Contact",go:function(){location.href="mailto:jithinjolly2000@gmail.com";}});
   entries.push({t:"LinkedIn",g:"Contact",go:function(){window.open("https://www.linkedin.com/in/jithin2k","_blank","noopener");}});
   function draw(){

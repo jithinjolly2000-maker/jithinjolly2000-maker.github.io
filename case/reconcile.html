@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study: Reconcile — Jithin J</title>
+<meta name="description" content="How I designed a private, in-browser tool that reconciles two files and shows every mismatch, without uploading anything.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<nav class="top"><div class="wrap"><a class="logo" href="../">JITHIN J</a><a href="../#gallery">All work</a></div></nav>
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Case study · Data quality</p>
+    <h1>Reconcile</h1>
+    <p class="oneliner">The afternoon of VLOOKUPs, done in a few seconds, without your data leaving your computer.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Designed and built it, with AI</dd></div>
+      <div><dt>Built with</dt><dd>Vanilla JavaScript, no libraries</dd></div>
+      <div><dt>Data</dt><dd>Your own files, or the built-in sample</dd></div>
+      <div><dt>Status</dt><dd>Live tool</dd></div>
+    </dl>
+    <figure class="shot"><img src="../work/csv-reconciliation-tool.jpg" alt="The Reconcile tool, ready to load two files" width="960" height="600"><figcaption>Load two files, pick the key column and the columns to compare, then reconcile.</figcaption></figure>
+  </header>
+
+  <section class="part"><h2>The problem</h2><div>
+    <p>Comparing two exports by hand means lookups, filters and highlighting, and it's easy to miss a row. Online comparison tools are faster, but they ask you to upload files that are often confidential.</p>
+  </div></section>
+
+  <section class="part"><h2>The approach</h2><div>
+    <p>Everything happens in the browser. The tool reads both files, matches rows on the key column you choose, and sorts every row into one of four groups.</p>
+    <div class="flow" aria-label="How the tool works">
+      <div class="box"><b>Input</b><span>Two CSV files, a key column and the columns to compare</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Logic</b><span>Match on the key, then compare each chosen column field by field</span></div><div class="arr" aria-hidden="true">→</div>
+      <div class="box"><b>Output</b><span>Matches, field-level mismatches, rows only in A and rows only in B</span></div>
+    </div>
+  </div></section>
+
+  <section class="part"><h2>Key decisions</h2><div>
+    <ul class="points">
+      <li><b>Private by design.</b> Files are parsed locally and never sent to a server, so it's safe to use with financial or customer data.</li>
+      <li><b>Mismatches at field level.</b> It points to the exact column that differs, not just "this row is different", which is what makes it quick to act on.</li>
+      <li><b>Try it before trusting it.</b> A sample-data button shows how it works in one click, before anyone loads their own files.</li>
+      <li><b>No dependencies.</b> Plain HTML, CSS and JavaScript, so it loads fast and works offline once opened.</li>
+    </ul>
+  </div></section>
+
+  <section class="part"><h2>What it shows</h2><div>
+    <p>Which records agree, which differ and in exactly which field, and which exist in only one file, with any view exportable as CSV.</p>
+  </div></section>
+
+  <section class="part"><h2>What I'd add next</h2><div>
+    <p>Excel files, tolerances for amounts and dates, matching on amount and date when there's no shared reference, and catching near-miss references such as a letter O typed for a zero. I've since prototyped a fuller version with these features.</p>
+  </div></section>
+
+  <div class="try"><h2>Try it yourself</h2><p>Nothing you load ever leaves your browser.</p>
+    <div class="cta"><a class="btn primary" href="../csv-reconciliation-tool/" target="_blank" rel="noopener">Open the live tool</a><a class="btn" href="https://github.com/jithinjolly2000-maker/csv-reconciliation-tool" target="_blank" rel="noopener">View the source</a></div></div>
+
+  <div class="next"><a href="ops-control-center.html"><small>Previous case study</small><b>Ops Control Center</b></a><a href="appeals-risk-model.html" style="text-align:right"><small>Next case study</small><b>Appeals Risk Model</b></a></div>
+  <p class="note">A portfolio project. The sample data is synthetic.</p>
+</main>
+</body>
+</html>
