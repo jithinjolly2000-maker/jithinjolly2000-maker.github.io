@@ -231,6 +231,11 @@
   #hero.in .hcta{opacity:1}
   .hbtn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;background:var(--gold);background-size:200% 100%;color:#1a1206;font-weight:500;font-size:14.5px;text-decoration:none;transition:background-position .6s var(--ease),transform .3s var(--ease)}
   .hbtn:hover{background-position:100% 0;transform:translateY(-2px)}
+  .hghost{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;border:1px solid rgba(244,241,234,.35);color:#f4f1ea;font-size:14.5px;font-weight:500;text-decoration:none;margin-left:10px;transition:border-color .3s,color .3s}
+  .hghost:hover{border-color:var(--sand2);color:var(--sand2)}
+  @media(max-width:520px){.hghost{margin:10px 0 0}}
+  .honours{display:flex;flex-direction:column;gap:10px;margin-top:28px;align-items:flex-start}
+  .honours .award{margin-top:0}
   .frame .badge{position:absolute;right:24px;bottom:24px;z-index:3;padding:5px 12px;border-radius:999px;background:rgba(11,12,14,.86);border:1px solid rgba(201,166,107,.6);color:#e4c88f;font-size:12px;letter-spacing:.03em;pointer-events:none}
 
   /* numbers room */
@@ -340,7 +345,7 @@
       <h1><span>Welcome to</span><span class="gold">the world of awesome.</span></h1>
       <p class="sub">I find where processes break, and build what fixes them. This is a small gallery of those tools: real, working and free to use.</p>
       <p class="greet" id="greet"></p>
-      <div class="hcta"><a class="hbtn" href="case/appeals-risk-model.html">Read my case studies</a></div>
+      <div class="hcta"><a class="hbtn" href="case/appeals-risk-model.html">Read my case studies</a><a class="hghost" href="resume/Jithin_J_Resume.pdf" download>Download résumé</a></div>
     </div>
     <div class="cue">scroll</div>
   </section>
@@ -420,7 +425,7 @@
         <h2 class="t rv d1">Hi, I'm <span class="gold">Jithin.</span></h2>
         <p class="lede rv d2">I use AI to create, turning messy, manual work into tools that quietly run themselves. I work across data quality, risk and controls, business intelligence and process automation, and I care about building things that are actually reliable.</p>
         <p class="lede rv d2" style="color:var(--dim);font-size:16px">Off the clock, I stack rocks, chase mountains, and have travelled a good bit of Europe. (The puppy did not consent to being my mascot, but here we are.)</p>
-        <div class="award rv d3"><i></i>Invent &amp; Simplify Award — Amazon (Director/L8), 2026</div>
+        <div class="honours rv d3"><div class="award"><i></i>Invent &amp; Simplify Award — Amazon (Director/L8), 2026</div><div class="award"><i></i>Erasmus+ KA107 scholar: fully funded semester at the University of Padova, Italy, 2023</div></div>
       </div>
       <div class="prints rv d2">
         <figure class="print p1"><div class="tip">Reviewed every tool on this site. Approved all of them, in exchange for treats.</div><img src="puppy.jpg" alt="The puppy, Chief Morale Officer" loading="lazy"><figcaption>Chief Morale Officer</figcaption></figure>
@@ -453,14 +458,16 @@
         <a class="btn primary" href="mailto:jithinjolly2000@gmail.com">jithinjolly2000@gmail.com</a>
         <a class="btn" href="https://www.linkedin.com/in/jithin2k" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/jithinjolly2000-maker" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="resume/Jithin_J_Resume.pdf" download>Download résumé</a>
       </div>
+      <p class="fine" style="margin-top:22px">The downloadable résumé is a public version. For a detailed résumé, email jithinjolly2000@gmail.com.</p>
       <div class="fine">Built by Jithin J, with AI · all photos my own · demos use synthetic data · © 2026</div>
     </div>
   </section>
 </main>
 
 <div id="dock" role="navigation" aria-label="Quick navigation">
-  <a href="#gallery">Gallery</a><a href="case/appeals-risk-model.html">Case studies</a><a href="#archive">Archive</a><a href="#portrait">About</a><a href="#guestbook">Contact</a><button class="kk" type="button" id="kdock">⌘K</button>
+  <a href="#gallery">Gallery</a><a href="case/appeals-risk-model.html">Case studies</a><a href="#archive">Archive</a><a href="#portrait">About</a><a href="resume/Jithin_J_Resume.pdf" download>Résumé</a><a href="#guestbook">Contact</a><button class="kk" type="button" id="kdock">⌘K</button>
 </div>
 
 <div class="scrim" id="scrim"></div>
@@ -629,6 +636,7 @@
   featured.forEach(function(x){entries.push({t:x.n,g:"Gallery",go:function(){openDemo(x.s,x.n,x.k);}});});
   colls.forEach(function(c){c.t.forEach(function(t){entries.push({t:t[0]+" — "+t[1],g:c.h,go:function(){openDemo(t[2],t[0],c.h,!!t[3]);}});});});
   [["Appeals Risk & Exposure Model","appeals-risk-model"],["Ops Control Center","ops-control-center"],["Reconcile","reconcile"]].forEach(function(c){ entries.push({t:c[0]+" (case study)",g:"Case study",go:function(){location.href="case/"+c[1]+".html";}}); });
+  entries.push({t:"Download résumé (public version)",g:"Contact",go:function(){location.href="resume/Jithin_J_Resume.pdf";}});
   entries.push({t:"Email Jithin",g:"Contact",go:function(){location.href="mailto:jithinjolly2000@gmail.com";}});
   entries.push({t:"LinkedIn",g:"Contact",go:function(){window.open("https://www.linkedin.com/in/jithin2k","_blank","noopener");}});
   function draw(){
